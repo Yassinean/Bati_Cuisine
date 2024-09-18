@@ -1,7 +1,7 @@
 package Model;
 
 public enum EtatProjet {
-    Terminer,
-    EnCours,
-    Annuler
+    Encours,
+    Terminé,
+    Annulé
 }

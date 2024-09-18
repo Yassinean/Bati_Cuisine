@@ -16,7 +16,7 @@ public class ProjetImp implements IProjet {
 
     private Connection connection;
 
-    private ProjetImp() {
+    public ProjetImp() {
         try {
             this.connection = DbConfig.getInstance().getConnection();
         } catch (SQLException e) {
@@ -44,6 +44,7 @@ public class ProjetImp implements IProjet {
                         resultSet.getDouble("couttotal"),
                         stateP
                 );
+                projets.add(projet);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -53,11 +54,40 @@ public class ProjetImp implements IProjet {
 
     @Override
     public Projet findProjectById(Integer id) {
+        String sql = " SELECT * FROM projet WHERE id = ? ";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            statement.setInt(1,id);
+            if (resultSet.next()){
+                String state = resultSet.getString("etat");
+                EtatProjet stateP = null;
+                if (state != null){
+                    stateP = EtatProjet.valueOf(state);
+                }
+                return new Projet(resultSet.getInt("id"),
+                        resultSet.getString("nomProjet"),
+                        resultSet.getDouble("margeBeneficiaire"),
+                        resultSet.getDouble("coutTotal"),
+                        stateP);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public void addProject(Projet projet) {
-
+        String sql = "INSERT INTO projet (nomProjet,margeBeneficiaire,coutTotal,etatProjet) VALUES (?,?,?,?) ";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,projet.getNomProjet());
+            statement.setDouble(2,projet.getMargeBeneficiaire());
+            statement.setDouble(3,projet.getCoutTotal());
+            statement.setObject(4,projet.getEtatProjet(),java.sql.Types.OTHER);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
+
