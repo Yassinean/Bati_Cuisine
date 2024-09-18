@@ -48,9 +48,9 @@ public class Projet {
     @Override
     public String toString() {
         return "Projet =>" +
-                "\nid=" + id +
-                "\nNom du Projet='" + nomProjet + '\'' +
-                "\nMarge Beneficiaire=" + margeBeneficiaire +
-                "\nCout Total=" + coutTotal;
+                "\nid= " + id +
+                "\nNom du Projet : " + nomProjet +
+                "\nMarge Beneficiaire : " + margeBeneficiaire +
+                "\nCout Total : " + coutTotal;
     }
 }
