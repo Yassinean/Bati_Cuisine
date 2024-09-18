@@ -19,7 +19,7 @@ public class Main {
             System.out.println("4. Exit");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -30,10 +30,9 @@ public class Main {
                     System.out.print("Enter Cout Total: ");
                     double coutTotal = scanner.nextDouble();
                     System.out.print("Enter Etat Projet (e.g., ACTIVE, INACTIVE): ");
-                    String stateInput = scanner.next().toUpperCase();
+                    String stateInput = scanner.next();
                     EtatProjet etatProjet = EtatProjet.valueOf(stateInput);
 
-                    int id=0;
                     Projet newProject = new Projet(id, name, margeBeneficiaire, coutTotal, etatProjet);
                     projetImp.addProject(newProject);
                     System.out.println("Project added successfully!");

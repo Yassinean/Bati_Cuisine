@@ -40,7 +40,7 @@ public class ProjetImp implements IProjet {
                 Projet projet = new Projet(
                         resultSet.getInt("id"),
                         resultSet.getString("nomProjet"),
-                        resultSet.getDouble("margebenificiaire"),
+                        resultSet.getDouble("margebenificiare"),
                         resultSet.getDouble("couttotal"),
                         stateP
                 );
@@ -66,7 +66,7 @@ public class ProjetImp implements IProjet {
                 }
                 return new Projet(resultSet.getInt("id"),
                         resultSet.getString("nomProjet"),
-                        resultSet.getDouble("margeBeneficiaire"),
+                        resultSet.getDouble("margeBenificiaire"),
                         resultSet.getDouble("coutTotal"),
                         stateP);
             }
@@ -78,7 +78,7 @@ public class ProjetImp implements IProjet {
 
     @Override
     public void addProject(Projet projet) {
-        String sql = "INSERT INTO projet (nomProjet,margeBeneficiaire,coutTotal,etatProjet) VALUES (?,?,?,?) ";
+        String sql = "INSERT INTO projet (nomProjet,margeBenificiare,coutTotal,etatProjet) VALUES (?,?,?,?) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,projet.getNomProjet());
             statement.setDouble(2,projet.getMargeBeneficiaire());
