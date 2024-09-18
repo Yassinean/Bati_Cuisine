@@ -1,4 +1,4 @@
 package Repository.Interface;
 
-public class IComposant {
+public interface IComposant {
 }

@@ -1,4 +1,9 @@
 package Repository.Interface;
 
-public class IProjet {
+import Model.Projet;
+
+import java.util.*;
+
+public interface IProjet {
+
 }

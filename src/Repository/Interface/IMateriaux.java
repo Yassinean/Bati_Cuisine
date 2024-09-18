@@ -1,4 +1,4 @@
 package Repository.Interface;
 
-public class IMateriaux {
+public interface IMateriaux {
 }

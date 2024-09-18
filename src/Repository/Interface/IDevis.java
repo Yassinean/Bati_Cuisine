@@ -1,4 +1,4 @@
 package Repository.Interface;
 
-public class IDevis {
+public interface IDevis {
 }

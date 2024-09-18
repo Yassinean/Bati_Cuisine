@@ -1,4 +1,4 @@
 package Repository.Interface;
 
-public class IClient {
+public interface IClient {
 }
