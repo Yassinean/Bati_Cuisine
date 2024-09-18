@@ -5,13 +5,14 @@ public class Projet {
     private String nomProjet;
     private double margeBeneficiaire;
     private double coutTotal;
+    private EtatProjet etatProjet;
 
-
-    public Projet(int id, String nomProjet, double margeBeneficiaire, double coutTotal) {
+    public Projet(int id, String nomProjet, double margeBeneficiaire, double coutTotal,EtatProjet etatProjet) {
         this.id = id;
         this.nomProjet = nomProjet;
         this.margeBeneficiaire = margeBeneficiaire;
         this.coutTotal = coutTotal;
+        this.etatProjet = etatProjet;
     }
 
     public int getId() {
@@ -44,6 +45,14 @@ public class Projet {
 
     public void setCoutTotal(double coutTotal) {
         this.coutTotal = coutTotal;
+    }
+
+    public EtatProjet getEtatProjet() {
+        return etatProjet;
+    }
+
+    public void setEtatProjet(EtatProjet etatProjet) {
+        this.etatProjet = etatProjet;
     }
 
     @Override
