@@ -60,7 +60,7 @@ public class Devis {
     @Override
     public String toString() {
         return "Devis =>" +
-                "\nid=" + id +
+                "\nid = " + id +
                 "\n Montant Estime : " + montantEstime +
                 "\nDate Emission : " + dateEmission +
                 "\nDate Validite : " + dateValidite +
