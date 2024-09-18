@@ -58,10 +58,10 @@ public class Client {
     @Override
     public String toString() {
         return "Client =>" +
-                "\nid=" + id +
-                "\n Nom='" + nom  +
-                "\n Address='" + address +
-                "\n Telephone='" + telephone +
-                "\n estProfessionel=" + estProfessionel;
+                "\nid = " + id +
+                "\n Nom : " + nom  +
+                "\n Address : " + address +
+                "\n Telephone : " + telephone +
+                "\n estProfessionel : " + estProfessionel;
     }
 }
