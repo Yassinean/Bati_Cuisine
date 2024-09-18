@@ -6,6 +6,7 @@ public class Projet {
     private double margeBeneficiaire;
     private double coutTotal;
 
+
     public Projet(int id, String nomProjet, double margeBeneficiaire, double coutTotal) {
         this.id = id;
         this.nomProjet = nomProjet;
