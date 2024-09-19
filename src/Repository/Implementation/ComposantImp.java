@@ -28,7 +28,6 @@ public class ComposantImp implements IComposant {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Composant composant = new Composant(
-                        resultSet.getInt("id"),
                         resultSet.getString("nom"),
                         resultSet.getString("typecomposant"),
                         resultSet.getDouble("tauxtva"),
@@ -49,7 +48,7 @@ public class ComposantImp implements IComposant {
             ResultSet resultSet = statement.executeQuery();
             statement.setInt(1, id);
             if (resultSet.next()) {
-                return new Composant(resultSet.getInt("id"),
+                return new Composant(
                         resultSet.getString("nom"),
                         resultSet.getString("typecomposant"),
                         resultSet.getDouble("tauxtva"),

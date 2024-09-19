@@ -8,8 +8,7 @@ public class Composant {
     protected int projet_id;
 
 
-    public Composant(int id, String nom, String typeComposant, double tauxTva , int projet_id) {
-        this.id = id;
+    public Composant(String nom, String typeComposant, double tauxTva , int projet_id) {
         this.nom = nom;
         this.typeComposant = typeComposant;
         this.tauxTva = tauxTva;
