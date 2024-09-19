@@ -15,6 +15,10 @@ public class Client {
         this.estProfessionel = estProfessionel;
     }
 
+    public Client() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -29,8 +29,4 @@ public class ClientServiceImp implements IClientService {
         clientReposInterface.addClient(client);
     }
 
-    @Override
-    public void updateClient(Integer id, Client client) {
-        clientReposInterface.updateClient(id, client);
-    }
 }

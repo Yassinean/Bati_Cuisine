@@ -1,9 +1,7 @@
 package Repository.Implementation;
 
-import Config.DbConfig;
+
 import Model.Client;
-import Model.EtatProjet;
-import Model.Projet;
 import Repository.Interface.IClient;
 
 import java.sql.Connection;
@@ -17,12 +15,8 @@ public class ClientImp implements IClient {
 
     private Connection connection;
 
-    public ClientImp() {
-        try {
-            this.connection = DbConfig.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public ClientImp(Connection connection) {
+        this.connection = connection;
     }
 
 
@@ -81,22 +75,6 @@ public class ClientImp implements IClient {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void updateClient(Integer id, Client client) {
-        String sql = "UPDATE TABLE client SET nom = ? , address = ? , telephone = ? , estProfessionel = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, client.getNom());
-            statement.setString(2, client.getAddress());
-            statement.setString(3, client.getTelephone());
-            statement.setObject(4, client.isEstProfessionel());
-            statement.setObject(5, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
 
 }
 
