@@ -5,7 +5,7 @@ import Model.Devis;
 import java.util.List;
 
 public interface IDevis {
-    List<Devis> findAllDeviss();
+    List<Devis> findAllDevis();
     Devis findDevisById(Integer id);
     void addDevis(Devis devis);
 
