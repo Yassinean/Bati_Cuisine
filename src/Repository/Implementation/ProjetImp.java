@@ -89,5 +89,21 @@ public class ProjetImp implements IProjet {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void updateProject(Integer id, Projet projet){
+        String sql = "UPDATE TABLE projet SET nomProjet = ? , margeBenificiare = ? , coutTotal = ? , etatProjet = ? WHERE id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1,projet.getNomProjet());
+            statement.setDouble(2,projet.getMargeBeneficiaire());
+            statement.setDouble(3,projet.getCoutTotal());
+            statement.setObject(4,projet.getEtatProjet());
+            statement.setObject(5,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
 

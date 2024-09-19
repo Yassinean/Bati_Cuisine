@@ -1,21 +1,20 @@
-import Repository.Implementation.ProjetImp;
-import Model.Projet;
-import Model.EtatProjet;
+import Repository.Implementation.ClientImp;
+import Model.Client;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ProjetImp projetImp = new ProjetImp();
+        ClientImp clientImp = new ClientImp();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
             System.out.println("Choose an option:");
-            System.out.println("1. Add Project");
-            System.out.println("2. View All Projects");
-            System.out.println("3. Find Project by ID");
+            System.out.println("1. Add Client");
+            System.out.println("2. View All Clients");
+            System.out.println("3. Find Client by ID");
             System.out.println("4. Exit");
 
             int choice = scanner.nextInt();
@@ -23,37 +22,36 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter Project Name: ");
+                    System.out.print("Enter Client Name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter Marg Beneficiaire: ");
-                    double margeBeneficiaire = scanner.nextDouble();
-                    System.out.print("Enter Cout Total: ");
-                    double coutTotal = scanner.nextDouble();
-                    System.out.print("Enter Etat Projet (e.g., ACTIVE, INACTIVE): ");
-                    String stateInput = scanner.next();
-                    EtatProjet etatProjet = EtatProjet.valueOf(stateInput);
+                    System.out.print("Enter address: ");
+                    String address = scanner.nextLine();
+                    System.out.print("Enter Telephone: ");
+                    String telephone = scanner.nextLine();
+                    System.out.print("Enter Etat Client is Professional(e.g., true,false): ");
+                    boolean stateInput = scanner.nextBoolean();
 
-                    Projet newProject = new Projet(id, name, margeBeneficiaire, coutTotal, etatProjet);
-                    projetImp.addProject(newProject);
-                    System.out.println("Project added successfully!");
+                    Client newClient = new Client(1, name, address, telephone, stateInput);
+                    clientImp.addClient(newClient);
+                    System.out.println("Client added successfully!");
                     break;
 
                 case 2:
-                    List<Projet> allProjects = projetImp.findAllProjects();
-                    System.out.println("All Projects:");
-                    for (Projet projet : allProjects) {
-                        System.out.println(projet);
+                    List<Client> allClients = clientImp.findAllClients();
+                    System.out.println("All Clients:");
+                    for (Client client : allClients) {
+                        System.out.println(client);
                     }
                     break;
 
                 case 3:
-                    System.out.print("Enter Project ID: ");
-                    id = scanner.nextInt();
-                    Projet projectById = projetImp.findProjectById(id);
+                    System.out.print("Enter client ID: ");
+                    int id = scanner.nextInt();
+                    Client projectById = clientImp.findClientById(id);
                     if (projectById != null) {
-                        System.out.println("Project Found: " + projectById);
+                        System.out.println("Client Found: " + projectById);
                     } else {
-                        System.out.println("Project not found.");
+                        System.out.println("Client not found.");
                     }
                     break;
 

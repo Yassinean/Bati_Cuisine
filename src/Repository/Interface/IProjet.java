@@ -9,5 +9,5 @@ public interface IProjet {
     Projet findProjectById(Integer id);
     void addProject(Projet projet);
     void updateProject(Integer id,Projet projet);
-    void deleteProject(Integer id);
+//    void deleteProject(Integer id);
 }
