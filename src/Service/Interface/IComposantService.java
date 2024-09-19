@@ -8,5 +8,4 @@ public interface IComposantService {
     Composant getComposantById(Integer id);
     List<Composant> getAllComposants();
     void createComposant(Composant projet);
-    void updateComposant(Integer id , Composant projet);
 }
