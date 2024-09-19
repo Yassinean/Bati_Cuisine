@@ -5,12 +5,15 @@ public class Composant {
     protected String nom;
     protected String typeComposant;
     protected double tauxTva;
+    protected int projet_id;
 
-    public Composant(int id, String nom, String typeComposant, double tauxTva) {
+
+    public Composant(int id, String nom, String typeComposant, double tauxTva , int projet_id) {
         this.id = id;
         this.nom = nom;
         this.typeComposant = typeComposant;
         this.tauxTva = tauxTva;
+        this.projet_id = projet_id;
     }
 
     public int getId() {
@@ -43,6 +46,14 @@ public class Composant {
 
     public void setTauxTva(double tauxTva) {
         this.tauxTva = tauxTva;
+    }
+
+    public int getProjet_id() {
+        return projet_id;
+    }
+
+    public void setProjet_id(int projet_id) {
+        this.projet_id = projet_id;
     }
 
     @Override
