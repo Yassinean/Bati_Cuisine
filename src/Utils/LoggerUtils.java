@@ -1,14 +1,19 @@
 package Utils;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class LoggerUtils {
-    private static final Logger logger = Logger.getLogger(LoggerUtils.class.getName());
 
-    private LoggerUtils() {
+    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.class);
+
+    public static void logInfo(String message){
+        logger.info(message);
     }
-
-    public static Logger getLogger() {
-        return getLogger();
+    public static void logWarn(String message){
+        logger.warn(message);
+    }
+    public static void logError(String message){
+        logger.error(message);
     }
 }
