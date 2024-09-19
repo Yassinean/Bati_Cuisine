@@ -31,7 +31,8 @@ public class ComposantImp implements IComposant {
                         resultSet.getInt("id"),
                         resultSet.getString("nom"),
                         resultSet.getString("typecomposant"),
-                        resultSet.getDouble("tauxtva")
+                        resultSet.getDouble("tauxtva"),
+                        resultSet.getInt("projet_id")
                 );
                 composants.add(composant);
             }
@@ -51,7 +52,8 @@ public class ComposantImp implements IComposant {
                 return new Composant(resultSet.getInt("id"),
                         resultSet.getString("nom"),
                         resultSet.getString("typecomposant"),
-                        resultSet.getDouble("tauxtva")
+                        resultSet.getDouble("tauxtva"),
+                        resultSet.getInt("projet_id")
                 );
             }
         } catch (SQLException e) {
@@ -67,7 +69,7 @@ public class ComposantImp implements IComposant {
             statement.setString(1, composant.getNom());
             statement.setString(2, composant.getTypeComposant());
             statement.setDouble(3, composant.getTauxTva());
-            statement.setBoolean(4, composant.());
+            statement.setInt(4, composant.getProjet_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
