@@ -20,6 +20,11 @@ public class ClientServiceImp implements IClientService {
     }
 
     @Override
+    public Client getClientByName(String name){
+        return clientReposInterface.findClientByName(name);
+    }
+
+    @Override
     public List<Client> getAllClients() {
         return clientReposInterface.findAllClients();
     }
@@ -28,5 +33,4 @@ public class ClientServiceImp implements IClientService {
     public void createClient(Client client) {
         clientReposInterface.addClient(client);
     }
-
 }

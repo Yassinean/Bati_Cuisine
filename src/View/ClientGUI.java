@@ -20,49 +20,34 @@ public class ClientGUI {
     }
 
     public void displayMenu() {
-        boolean running = true;
 
         int choice;
-        while (running) {
-            System.out.println("==== Client Menu ====");
-            System.out.println("1. Add new Client");
-            System.out.println("2. Update Client");
-            System.out.println("3. Delete Client");
-            System.out.println("4. Search Client");
-            System.out.println("5. Show all Clients");
-            System.out.println("0. Back to the main menu");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+        System.out.println("--- Recherche de client ---");
+        System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
+        System.out.println("1. Chercher un client existant");
+        System.out.println("2. Ajouter un nouveau client");
+        System.out.println("Choisissez une option :");
+        choice = scanner.nextInt();
+        scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    addClient();
-                    break;
-                case 2:
-                    updateClient();
-                    break;
-                case 3:
-//                    deleteClient();
-                    break;
-                case 4:
-//                    searchClientByName();
-                    break;
-                case 5:
-                    getAllClient();
-                    break;
-                case 0:
-                    System.out.println("Exiting client menu...");
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
+        switch (choice) {
+            case 1:
+                chercherClient();
+                break;
+            case 2:
+                ajouterClient();
+                break;
+            case 0:
+                System.out.println("Exiting client menu...");
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
         }
     }
 
+
     // worked
-    public void addClient() {
+    public void ajouterClient() {
 
         System.out.println("== Ajouter un nouveau client ==");
 
@@ -92,13 +77,13 @@ public class ClientGUI {
 
     }
 
-    public void updateClient() {
-        System.out.println("== Mettre à jour un client ==");
-
-        System.out.print("Entrez l'ID du client à mettre à jour: ");
-        int clientId = scanner.nextInt();
-
-        System.out.println(clientService.getClientById(clientId));
+//    public void updateClient() {
+//        System.out.println("== Mettre à jour un client ==");
+//
+//        System.out.print("Entrez l'ID du client à mettre à jour: ");
+//        int clientId = scanner.nextInt();
+//
+//        System.out.println(clientService.getClientById(clientId));
 //        if (existingClientOpt.isPresent()) {
 //            Client existingClient = existingClientOpt.get();
 //            System.out.println("Client trouvé: " + existingClient.getNom());
@@ -119,7 +104,7 @@ public class ClientGUI {
 //
 //            System.out.println("Client updated successfully.");
 //        }
-    }
+//    }
 
 //    public void deleteClient() {
 //        System.out.println("== Supprimer un client ==");
@@ -150,21 +135,30 @@ public class ClientGUI {
 //        } else System.out.println("Aucun client trouvé avec le nom " + nom);
 //    }
 
-    public void getAllClient() {
-        System.out.println("== Liste des clients ==");
-        List<Client> clients = clientService.getAllClients();
-
-        if (clients.isEmpty()) {
+    public void chercherClient() {
+        System.out.println("--- Recherche de client existant ---");
+        System.out.println("Entrez le nom du client : ");
+        String name = scanner.nextLine();
+        Client client = clientService.getClientByName(name);
+        if (client != null) {
             System.out.println("No client found.");
         } else {
-            for (Client client : clients) {
-                System.out.println("ID: " + client.getId());
-                System.out.println("Nom: " + client.getNom());
-                System.out.println("Adresse: " + client.getAddress());
-                System.out.println("Téléphone: " + client.getTelephone());
-                System.out.println("Professionnel: " + client.isEstProfessionel());
-                System.out.println("------------------------------");
+            System.out.println("Client trouvé !");
+            System.out.println("Nom: " + client.getNom());
+            System.out.println("Adresse: " + client.getAddress());
+            System.out.println("Téléphone: " + client.getTelephone());
+            System.out.println("Souhaitez-vous continuer avec ce client ? (y/n) : y");
+            char choice = scanner.next().charAt(0);
+            if (choice == 'y'){
+                System.out.println("--- Création d'un Nouveau Projet ---");
+                System.out.println("Entrez le nom du projet :");
+
+            } else if (choice == 'n') {
+                return;
             }
+            System.out.println("Professionnel: " + client.isEstProfessionel());
+            System.out.println("------------------------------");
+
         }
     }
 }

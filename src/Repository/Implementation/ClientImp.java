@@ -63,6 +63,27 @@ public class ClientImp implements IClient {
     }
 
     @Override
+    public Client findClientByName(String name) {
+        String sql = " SELECT * FROM client WHERE nom = ? ";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            statement.setString(2, name);
+            if (resultSet.next()) {
+                return new Client(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("address"),
+                        resultSet.getString("telephone"),
+                        resultSet.getBoolean("estProfessionel")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void addClient(Client client) {
         String sql = "INSERT INTO client (nom , address , telephone , estProfessionel) VALUES (?,?,?,?) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
