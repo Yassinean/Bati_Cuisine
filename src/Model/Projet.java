@@ -7,8 +7,7 @@ public class Projet {
     private double coutTotal;
     private EtatProjet etatProjet;
 
-    public Projet(int id, String nomProjet, double margeBeneficiaire, double coutTotal,EtatProjet etatProjet) {
-        this.id = id;
+    public Projet(String nomProjet, double margeBeneficiaire, double coutTotal,EtatProjet etatProjet) {
         this.nomProjet = nomProjet;
         this.margeBeneficiaire = margeBeneficiaire;
         this.coutTotal = coutTotal;

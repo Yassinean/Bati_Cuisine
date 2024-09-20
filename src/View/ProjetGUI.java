@@ -1,5 +1,6 @@
 package View;
 
+import Model.Projet;
 import Service.Interface.IProjetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class ProjetGUI {
         System.out.print("Entrez la surface de la cuisine (en m²) : ");
         double surface = scanner.nextDouble();
         scanner.nextLine();
+
+        Projet projet = new Projet();
+
         materiauxGUI.displayMenuMaterial();
         mainOeuvreGUI.displayMenuMainOeuvre();
     }
