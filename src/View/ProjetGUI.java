@@ -9,42 +9,27 @@ import java.util.Scanner;
 public class ProjetGUI {
     private static final Logger logger = LoggerFactory.getLogger(ProjetGUI.class);
     private IProjetService projetService;
+    private MateriauxGUI materiauxGUI;
+    private MainOeuvreGUI mainOeuvreGUI;
+
     private Scanner scanner = new Scanner(System.in);
 
-    public ProjetGUI(IProjetService projetService) {
+    public ProjetGUI(IProjetService projetService,MateriauxGUI materiauxGUI, MainOeuvreGUI mainOeuvreGUI) {
         this.projetService = projetService;
+        this.materiauxGUI = materiauxGUI;
+        this.mainOeuvreGUI = mainOeuvreGUI;
     }
+
+    public ProjetGUI(){}
 
     public void displayMenuProject() {
-        System.out.println("=== Menu Principal ===");
-        System.out.println("1. Créer un nouveau projet");
-        System.out.println("2. Afficher les projets existants");
-        System.out.println("3. Calculer le coût d'un projet");
-        System.out.println("4. Quitter");
-
-        System.out.println("Choisissez un option : ");
-        int choice = scanner.nextInt();
-
-        switch (choice) {
-            case 1:
-                creerProjet();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
-
+        System.out.println("--- Création d'un Nouveau Projet ---");
+        System.out.print("Entrez le nom du projet : ");
+        String nomProjet = scanner.nextLine();
+        System.out.print("Entrez la surface de la cuisine (en m²) : ");
+        double surface = scanner.nextDouble();
+        scanner.nextLine();
+        materiauxGUI.displayMenuMaterial();
+        mainOeuvreGUI.displayMenuMainOeuvre();
     }
-        public void creerProjet() {
-            System.out.println("--- Création d'un Nouveau Projet ---");
-            System.out.println("Entrez le nom du projet : ");
-            String nomProject = scanner.nextLine();
-            System.out.println("Entrez la surface de la cuisine (en m²) :");
-            double surface = scanner.nextDouble();
-
-
-        }
 }

@@ -16,6 +16,8 @@ public class MateriauxGUI {
         this.materialService = materialService;
     }
 
+    public MateriauxGUI(){}
+
     public void displayMenuMaterial() {
         System.out.println("--- Ajout des matériaux ---");
         System.out.println("Entrez le nom du matériau :");
@@ -29,5 +31,6 @@ public class MateriauxGUI {
         System.out.println("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.0 = haute qualité) :");
         double coeff = scanner.nextDouble();
         logger.info("Matériau ajouté avec succès !");
+        System.out.println("Voulez-vous ajouter un autre matériau ? (y/n) : ");
     }
 }
