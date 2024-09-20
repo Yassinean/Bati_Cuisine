@@ -4,7 +4,7 @@ out/
 !**/src/test/**/out/
 
 ### Config ###
-src/Config/DbConfig
+!**/src/Config/DbConfig.java
 ### Eclipse ###
 .apt_generated
 .classpath

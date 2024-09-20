@@ -5,14 +5,18 @@ public class Projet {
     private String nomProjet;
     private double margeBeneficiaire;
     private double coutTotal;
+    private double surface;
     private EtatProjet etatProjet;
 
-    public Projet(String nomProjet, double margeBeneficiaire, double coutTotal,EtatProjet etatProjet) {
+    public Projet(String nomProjet, double margeBeneficiaire, double coutTotal, double surface,EtatProjet etatProjet) {
         this.nomProjet = nomProjet;
         this.margeBeneficiaire = margeBeneficiaire;
         this.coutTotal = coutTotal;
+        this.surface = surface;
         this.etatProjet = etatProjet;
     }
+
+    public Projet(){}
 
     public int getId() {
         return id;

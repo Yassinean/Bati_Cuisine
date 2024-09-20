@@ -1,6 +1,5 @@
 package View;
 
-import Model.Projet;
 import Service.Interface.IProjetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,6 @@ public class ProjetGUI {
         double surface = scanner.nextDouble();
         scanner.nextLine();
 
-        Projet projet = new Projet();
 
         materiauxGUI.displayMenuMaterial();
         mainOeuvreGUI.displayMenuMainOeuvre();
