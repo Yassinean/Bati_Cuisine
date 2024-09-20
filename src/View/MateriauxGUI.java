@@ -28,5 +28,6 @@ public class MateriauxGUI {
         double coutT = scanner.nextDouble();
         System.out.println("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.0 = haute qualité) :");
         double coeff = scanner.nextDouble();
+        logger.info("Matériau ajouté avec succès !");
     }
 }

@@ -45,7 +45,6 @@ public class ProjetGUI {
             System.out.println("Entrez la surface de la cuisine (en m²) :");
             double surface = scanner.nextDouble();
 
-            logger.info("Matériau ajouté avec succès !");
 
         }
 }
