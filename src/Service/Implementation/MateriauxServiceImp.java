@@ -16,7 +16,7 @@ public class MateriauxServiceImp implements IMateriauxService {
 
     @Override
     public Materiaux getMaterialById(Integer id) {
-        return materiauxReposInterface.findMateriauxById();
+        return materiauxReposInterface.findMateriauxById(id);
     }
 
     @Override
