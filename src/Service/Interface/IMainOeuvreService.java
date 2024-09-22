@@ -7,5 +7,5 @@ import java.util.List;
 public interface IMainOeuvreService {
     MainOeuvre getMainOeuvreById(Integer id);
     List<MainOeuvre> getAllMainOeuvres();
-    void createMainOeuvre(MainOeuvre mainOeuvre);
+    void createMainOeuvre(MainOeuvre mainOeuvre,int id);
 }

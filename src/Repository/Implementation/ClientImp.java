@@ -4,10 +4,7 @@ package Repository.Implementation;
 import Model.Client;
 import Repository.Interface.IClient;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,37 +16,17 @@ public class ClientImp implements IClient {
         this.connection = connection;
     }
 
+    public ClientImp(){}
 
-    @Override
-    public List<Client> findAllClients() {
-        List<Client> clients = new ArrayList<>();
-        String sql = "SELECT * FROM client";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Client client = new Client(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nom"),
-                        resultSet.getString("address"),
-                        resultSet.getString("telephone"),
-                        resultSet.getBoolean("estProfessionel")
-                );
-                clients.add(client);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return clients;
-    }
 
     @Override
     public Client findClientById(Integer id) {
         String sql = " SELECT * FROM client WHERE id = ? ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statement.executeQuery();
             statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Client(resultSet.getInt("id"),
+                return new Client(
                         resultSet.getString("nom"),
                         resultSet.getString("address"),
                         resultSet.getString("telephone"),
@@ -66,16 +43,17 @@ public class ClientImp implements IClient {
     public Client findClientByName(String name) {
         String sql = " SELECT * FROM client WHERE nom = ? ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            statement.setString(2, name);
             if (resultSet.next()) {
-                return new Client(
-                        resultSet.getInt("id"),
+                Client client = new Client(
                         resultSet.getString("nom"),
                         resultSet.getString("address"),
                         resultSet.getString("telephone"),
                         resultSet.getBoolean("estProfessionel")
                 );
+                client.setId(resultSet.getInt("id"));
+                return client;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,17 +62,23 @@ public class ClientImp implements IClient {
     }
 
     @Override
-    public void addClient(Client client) {
-        String sql = "INSERT INTO client (nom , address , telephone , estProfessionel) VALUES (?,?,?,?) ";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    public Client addClient(Client client) {
+        String sql = "INSERT INTO client (nom, address, telephone, estProfessionel) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, client.getNom());
             statement.setString(2, client.getAddress());
             statement.setString(3, client.getTelephone());
             statement.setBoolean(4, client.isEstProfessionel());
             statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                client.setId(generatedKeys.getInt(1));  // Set generated client_id
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return client;
     }
 
 }

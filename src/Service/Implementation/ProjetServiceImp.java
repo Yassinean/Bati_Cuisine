@@ -1,27 +1,24 @@
 package Service.Implementation;
 
 import Model.Projet;
+import Repository.Implementation.ProjetImp;
 import Repository.Interface.IProjet;
 import Service.Interface.IProjetService;
 
-import java.util.List;
 
 public class ProjetServiceImp implements IProjetService {
 
-    private IProjet projetReposInterface;
+    private IProjet projetReposInterface = new ProjetImp();
 
-    private ProjetServiceImp(IProjet projetReposInterface) {
+    public ProjetServiceImp(IProjet projetReposInterface) {
         this.projetReposInterface = projetReposInterface;
     }
+
+    public ProjetServiceImp() {}
 
     @Override
     public Projet getProjectById(Integer id) {
         return projetReposInterface.findProjectById(id);
-    }
-
-    @Override
-    public List<Projet> getAllProjects() {
-        return projetReposInterface.findAllProjects();
     }
 
     @Override

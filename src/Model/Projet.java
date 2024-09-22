@@ -1,11 +1,17 @@
 package Model;
 
+import Model.Enum.EtatProjet;
+
+import java.util.List;
+
 public class Projet {
     private int id;
     private String nomProjet;
     private double margeBeneficiaire;
     private double coutTotal;
     private double surface;
+    private Client client;
+    private List<Composant> composants;
     private EtatProjet etatProjet;
 
     public Projet(String nomProjet, double margeBeneficiaire, double coutTotal, double surface,EtatProjet etatProjet) {
@@ -17,6 +23,11 @@ public class Projet {
     }
 
     public Projet(){}
+
+    public Projet(String nomProjet , double surface){
+        this.nomProjet = nomProjet;
+        this.surface = surface;
+    }
 
     public int getId() {
         return id;
@@ -56,6 +67,30 @@ public class Projet {
 
     public void setEtatProjet(EtatProjet etatProjet) {
         this.etatProjet = etatProjet;
+    }
+
+    public double getSurface() {
+        return surface;
+    }
+
+    public void setSurface(double surface) {
+        this.surface = surface;
+    }
+
+    public int getClient() {
+        return client.getId();
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Composant> getComposants() {
+        return composants;
+    }
+
+    public void setComposants(List<Composant> composants) {
+        this.composants = composants;
     }
 
     @Override

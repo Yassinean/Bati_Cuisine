@@ -7,8 +7,7 @@ public class Client {
     private String telephone;
     private boolean estProfessionel;
 
-    public Client(int id, String nom, String address, String telephone, boolean estProfessionel) {
-        this.id = id;
+    public Client(String nom, String address, String telephone, boolean estProfessionel) {
         this.nom = nom;
         this.address = address;
         this.telephone = telephone;
@@ -62,7 +61,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client =>" +
-                "\nid = " + id +
+                "\nid = " + getId() +
                 "\n Nom : " + nom  +
                 "\n Address : " + address +
                 "\n Telephone : " + telephone +

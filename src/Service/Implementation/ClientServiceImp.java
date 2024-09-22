@@ -1,16 +1,16 @@
 package Service.Implementation;
 
 import Model.Client;
+import Repository.Implementation.ClientImp;
 import Repository.Interface.IClient;
 import Service.Interface.IClientService;
 
-import java.util.List;
 
 public class ClientServiceImp implements IClientService {
 
-    private IClient clientReposInterface;
+    private IClient clientReposInterface = new ClientImp();
 
-    private ClientServiceImp(IClient clientReposInterface){
+    public ClientServiceImp(IClient clientReposInterface){
         this.clientReposInterface = clientReposInterface;
     }
 
@@ -22,11 +22,6 @@ public class ClientServiceImp implements IClientService {
     @Override
     public Client getClientByName(String name){
         return clientReposInterface.findClientByName(name);
-    }
-
-    @Override
-    public List<Client> getAllClients() {
-        return clientReposInterface.findAllClients();
     }
 
     @Override

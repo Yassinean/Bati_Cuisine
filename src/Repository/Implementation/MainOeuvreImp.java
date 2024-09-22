@@ -1,6 +1,7 @@
 package Repository.Implementation;
 
 import Config.DbConfig;
+import Model.Enum.MainOeuvreType;
 import Model.MainOeuvre;
 import Repository.Interface.IMainOeuvre;
 
@@ -31,15 +32,14 @@ public class MainOeuvreImp implements IMainOeuvre {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
+            MainOeuvreType mainOeuvreType = null;
+            String valeur = resultSet.getString("mainoeuvretype");
+            mainOeuvreType = MainOeuvreType.Ouvrier.valueOf(valeur);
                 MainOeuvre mainOuevre = new MainOeuvre(
-                        resultSet.getString("nom"),
-                        resultSet.getString("typecomposant"),
-                        resultSet.getDouble("tauxtva"),
-                        resultSet.getInt("projet_id"),
                         resultSet.getDouble("tauxhoraire"),
                         resultSet.getDouble("heuretravail"),
-                        resultSet.getDouble("productiviteouvrier")
+                        resultSet.getDouble("productiviteouvrier"),
+                        mainOeuvreType
                 );
                 mainOuevres.add(mainOuevre);
             }
@@ -56,15 +56,14 @@ public class MainOeuvreImp implements IMainOeuvre {
             ResultSet resultSet = statement.executeQuery();
             statement.setInt(1, id);
             if (resultSet.next()) {
-
+                MainOeuvreType mainOeuvreType = null ;
+                String valeur = resultSet.getString("mainoeuvretype");
+                mainOeuvreType = MainOeuvreType.Ouvrier.valueOf(valeur);
                 return new MainOeuvre(
-                        resultSet.getString("nom"),
-                        resultSet.getString("typecomposant"),
-                        resultSet.getDouble("tauxtva"),
-                        resultSet.getInt("projet_id"),
                         resultSet.getDouble("tauxhoraire"),
                         resultSet.getDouble("heuretravail"),
-                        resultSet.getDouble("productiviteouvrier")
+                        resultSet.getDouble("productiviteouvrier"),
+                        mainOeuvreType
                 );
             }
         } catch (SQLException e) {
@@ -74,16 +73,16 @@ public class MainOeuvreImp implements IMainOeuvre {
     }
 
     @Override
-    public void addMainOeuvre(MainOeuvre mainOeuvre) {
-        String sql = "INSERT INTO maindoeuvre (nom , typecomposant ,tauxtva , projet_id , tauxhoraire , heuretravail , productiviteouvrier) VALUES (?,?,?,?,?,?,?) ";
+    public void addMainOeuvre(MainOeuvre mainOeuvre , int projet_id) {
+        String sql = "INSERT INTO maindoeuvre (nom ,tauxtva , projet_id , tauxhoraire , heuretravail , productiviteouvrier , mainoeuvretype) VALUES (?,?,?,?,?,?,?::mainoeuvretype) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, mainOeuvre.getNom());
-            statement.setString(2, mainOeuvre.getTypeComposant());
-            statement.setDouble(3, mainOeuvre.getTauxTva());
-            statement.setInt(4, mainOeuvre.getProjet_id());
-            statement.setDouble(5, mainOeuvre.getTauxHoraire());
-            statement.setDouble(6, mainOeuvre.getHeureTravail());
-            statement.setDouble(7, mainOeuvre.getProductiviteOuvrier());
+            statement.setDouble(2, mainOeuvre.getTauxTva());
+            statement.setInt(3, projet_id);
+            statement.setDouble(4, mainOeuvre.getTauxHoraire());
+            statement.setDouble(5, mainOeuvre.getHeureTravail());
+            statement.setDouble(6, mainOeuvre.getProductiviteOuvrier());
+            statement.setString(7, mainOeuvre.getMainOeuvreType().name());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,10 +5,14 @@ import java.util.Scanner;
 public class MainGUI {
     private ClientGUI clientGUI;
     private ProjetGUI projetGUI;
+    private MateriauxGUI materiauxGUI;
+    private MainOeuvreGUI mainOeuvreGUI;
 
-    public MainGUI(ClientGUI clientGUI, ProjetGUI projetGUI) {
+    public MainGUI(ClientGUI clientGUI, ProjetGUI projetGUI , MateriauxGUI materiauxGUI , MainOeuvreGUI mainOeuvreGUI) {
         this.clientGUI = clientGUI;
         this.projetGUI = projetGUI;
+        this.materiauxGUI = materiauxGUI;
+        this.mainOeuvreGUI = mainOeuvreGUI;
     }
 
     public void displayMainMenu() {
@@ -22,11 +26,11 @@ public class MainGUI {
 
             System.out.println("Choisissez une option : ");
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    clientGUI.displayClientMenu();  // Call the ClientGUI
+                    clientGUI.displayMenuClient();
                     break;
                 case 2:
                     // Logic to display existing projects

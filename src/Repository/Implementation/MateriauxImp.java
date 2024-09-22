@@ -34,9 +34,7 @@ public class MateriauxImp implements IMateriaux {
 
                 Materiaux material = new Materiaux(
                         resultSet.getString("nom"),
-                        resultSet.getString("typecomposant"),
                         resultSet.getDouble("tauxtva"),
-                        resultSet.getInt("projet_id"),
                         resultSet.getDouble("coutunitaire"),
                         resultSet.getDouble("quantite"),
                         resultSet.getDouble("couttransport"),
@@ -60,9 +58,7 @@ public class MateriauxImp implements IMateriaux {
 
                 return new Materiaux(
                         resultSet.getString("nom"),
-                        resultSet.getString("typecomposant"),
                         resultSet.getDouble("tauxtva"),
-                        resultSet.getInt("projet_id"),
                         resultSet.getDouble("coutunitaire"),
                         resultSet.getDouble("quantite"),
                         resultSet.getDouble("couttransport"),
@@ -76,17 +72,16 @@ public class MateriauxImp implements IMateriaux {
     }
 
     @Override
-    public void addMateriaux(Materiaux material) {
-        String sql = "INSERT INTO materiaux (nom , typecomposant ,tauxtva , projet_id , coutunitaire , quantite , couttransport , coefficientqualite) VALUES (?,?,?,?,?,?,?,?) ";
+    public void addMateriaux(Materiaux material , int projet_id) {
+        String sql = "INSERT INTO materiaux (nom ,tauxtva , projet_id , coutunitaire , quantite , couttransport , coefficientqualite) VALUES (?,?,?,?,?,?,?) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, material.getNom());
-            statement.setString(2, material.getTypeComposant());
-            statement.setDouble(3, material.getTauxTva());
-            statement.setInt(4, material.getProjet_id());
-            statement.setDouble(5, material.getCoutUnitaire());
-            statement.setDouble(6, material.getQuantite());
-            statement.setDouble(7, material.getCoutTransport());
-            statement.setDouble(8, material.getCoefficientQualite());
+            statement.setDouble(2, material.getTauxTva());
+            statement.setInt(3, projet_id);
+            statement.setDouble(4, material.getCoutUnitaire());
+            statement.setDouble(5, material.getQuantite());
+            statement.setDouble(6, material.getCoutTransport());
+            statement.setDouble(7, material.getCoefficientQualite());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

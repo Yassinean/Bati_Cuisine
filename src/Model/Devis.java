@@ -17,6 +17,8 @@ public class Devis {
         this.accept = accept;
     }
 
+    public Devis(){}
+
     public int getId() {
         return id;
     }

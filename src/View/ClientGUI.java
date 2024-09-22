@@ -1,99 +1,96 @@
 package View;
 
 import Model.Client;
+import Model.Projet;
 import Service.Interface.IClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 public class ClientGUI {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientGUI.class);
-    private IClientService clientService;
-    private Scanner scanner = new Scanner(System.in);
-    private ProjetGUI projetGUI;
+    private static IClientService clientService;
+    private static ProjetGUI projetGUI;
+
 
     public ClientGUI(IClientService clientService, ProjetGUI projetGUI) {
-        this.clientService = clientService;
-        this.projetGUI = projetGUI;
+        ClientGUI.clientService = clientService;
+        ClientGUI.projetGUI = projetGUI;
+        Scanner scanner = new Scanner(System.in);
     }
 
-    public ClientGUI(){}
+    public ClientGUI() {
+    }
 
-    public void displayClientMenu() {
+    public static void displayMenuClient() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("--- Recherche de client ---");
+        System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
         System.out.println("1. Chercher un client existant");
         System.out.println("2. Ajouter un nouveau client");
         System.out.print("Choisissez une option : ");
+        int choix = scanner.nextInt();
+        scanner.nextLine();
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
-
-        switch (choice) {
+        switch (choix) {
             case 1:
-                chercherClient();
+                rechercherClient(scanner);
                 break;
             case 2:
-                ajouterClient();
+                ajouterNouveauClient(scanner);
                 break;
             default:
-                System.out.println("Choix invalide.");
+                System.out.println("Choix invalide. Veuillez réessayer.");
+                System.out.println(clientService);
+                displayMenuClient();
                 break;
         }
     }
 
-    public void ajouterClient() {
-        System.out.println("== Ajouter un nouveau client ==");
-
-        System.out.print("Nom du client: ");
-        String nom = scanner.nextLine();
-
-        System.out.print("Adresse: ");
-        String adresse = scanner.nextLine();
-
-        System.out.print("Téléphone: ");
-        String telephone = scanner.nextLine();
-
-        System.out.print("Est-ce le client est professionnel? (oui/non): ");
-        String reponse = scanner.nextLine();
-        boolean estProfessionnel = reponse.equalsIgnoreCase("oui");
-
-        Client client = new Client();
-        client.setNom(nom);
-        client.setAddress(adresse);
-        client.setTelephone(telephone);
-        client.setEstProfessionel(estProfessionnel);
-
-        clientService.createClient(client);
-        logger.info("Client ajouté avec succès.");
-    }
-
-    public void chercherClient() {
+    private static void rechercherClient(Scanner scanner) {
         System.out.println("--- Recherche de client existant ---");
         System.out.print("Entrez le nom du client : ");
-        String name = scanner.nextLine();
+        String nom = scanner.nextLine();
 
-        Client client = clientService.getClientByName(name);
+        Client client = clientService.getClientByName(nom);
         if (client != null) {
             System.out.println("Client trouvé !");
-            System.out.println("Nom: " + client.getNom());
-            System.out.println("Adresse: " + client.getAddress());
-            System.out.println("Téléphone: " + client.getTelephone());
-            System.out.println("Professionnel: " + client.isEstProfessionel());
-
-            System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-            char choice = scanner.nextLine().charAt(0);
-            if (choice == 'y') {
-                System.out.println("--- Création d'un Nouveau Projet ---");
-                System.out.print("Entrez le nom du projet : ");
-                projetGUI.displayMenuProject();
-            } else {
-                System.out.println("Retour au menu principal.");
+            System.out.print("Souhaitez-vous créer un projet pour ce client ? (y/n) : ");
+            String continuer = scanner.nextLine();
+            if (continuer.equalsIgnoreCase("y")) {
+                projetGUI.creerNouveauProjet(client);  // Pass client to project creation
             }
         } else {
-            System.out.println("Aucun client trouvé avec le nom " + name);
+            System.out.println("Client non trouvé.");
+        }
+    }
+
+
+    private static void ajouterNouveauClient(Scanner scanner) {
+        Projet projet = new Projet();
+        System.out.println("--- Ajouter un nouveau client ---");
+        System.out.print("Entrez le nom du client : ");
+        String nom = scanner.nextLine();
+        System.out.print("Entrez l'adresse du client : ");
+        String adresse = scanner.nextLine();
+        System.out.print("Entrez le numéro de téléphone du client : ");
+        String telephone = scanner.nextLine();
+
+        System.out.print("Le client est-il un professionnel ? (y/n) : ");
+        String isProInput = scanner.nextLine();
+        boolean isProfessional = isProInput.equalsIgnoreCase("y");
+
+        Client client = new Client(nom, adresse, telephone, isProfessional);
+        clientService.createClient(client);
+
+        System.out.println("Client ajouté avec succès !");
+        System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
+        String continuer = scanner.nextLine();
+
+        if (continuer.equalsIgnoreCase("y")) {
+            projetGUI.creerNouveauProjet(client);
         }
     }
 }

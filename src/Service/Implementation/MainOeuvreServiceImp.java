@@ -14,6 +14,8 @@ public class MainOeuvreServiceImp implements IMainOeuvreService {
         this.mainOeuvreReposInterface = mainOeuvre;
     }
 
+    public MainOeuvreServiceImp(){}
+
     @Override
     public MainOeuvre getMainOeuvreById(Integer id) {
         return mainOeuvreReposInterface.findMainOeuvreById(id);
@@ -25,7 +27,7 @@ public class MainOeuvreServiceImp implements IMainOeuvreService {
     }
 
     @Override
-    public void createMainOeuvre(MainOeuvre mainOeuvre) {
-        mainOeuvreReposInterface.addMainOeuvre(mainOeuvre);
+    public void createMainOeuvre(MainOeuvre mainOeuvre , int id) {
+        mainOeuvreReposInterface.addMainOeuvre(mainOeuvre , id);
     }
 }

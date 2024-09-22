@@ -1,36 +1,68 @@
 package View;
 
+import Model.Composant;
+import Model.Materiaux;
+import Model.Projet;
+import Service.Implementation.MateriauxServiceImp;
 import Service.Interface.IMateriauxService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MateriauxGUI {
 
     private static final Logger logger = LoggerFactory.getLogger(MateriauxGUI.class);
-    private IMateriauxService materialService;
-    private Scanner scanner = new Scanner(System.in);
+    private static IMateriauxService materialService = new MateriauxServiceImp();
+    private static Scanner scanner = new Scanner(System.in);
 
     public MateriauxGUI(IMateriauxService materialService) {
         this.materialService = materialService;
     }
 
-    public MateriauxGUI(){}
-
-    public void displayMenuMaterial() {
-        System.out.println("--- Ajout des matériaux ---");
-        System.out.println("Entrez le nom du matériau :");
-        String nomMaterial = scanner.nextLine();
-        System.out.println("Entrez la quantité de ce matériau (en m²) :");
-        double quantite = scanner.nextDouble();
-        System.out.println("Entrez le coût unitaire de ce matériau (€/m²) :");
-        double coutU = scanner.nextDouble();
-        System.out.println("Entrez le coût de transport de ce matériau (€) :");
-        double coutT = scanner.nextDouble();
-        System.out.println("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.0 = haute qualité) :");
-        double coeff = scanner.nextDouble();
-        logger.info("Matériau ajouté avec succès !");
-        System.out.println("Voulez-vous ajouter un autre matériau ? (y/n) : ");
+    public MateriauxGUI() {
     }
+
+    public static void displayMenuMaterial(Projet projet) {
+        Materiaux material = new Materiaux();
+        List<Materiaux> materiaux = new ArrayList<>();
+        System.out.println("--- Ajout des matériaux ---");
+        boolean continueAdding = true;
+
+        while (continueAdding) {
+            System.out.println("Entrez le nom du matériau :");
+            String nomMaterial = scanner.nextLine();
+
+            System.out.println("Entrez la quantité de ce matériau (en m²) :");
+            double quantite = scanner.nextDouble();
+
+            System.out.println("Entrez le coût unitaire de ce matériau (€/m²) :");
+            double coutU = scanner.nextDouble();
+
+            System.out.println("Entrez le coût de transport de ce matériau (€) :");
+            double coutT = scanner.nextDouble();
+
+            System.out.println("Entrez le coefficient de qualité du matériau :");
+            double coeff = scanner.nextDouble();
+            scanner.nextLine();  // Clear buffer
+            material.setNom(nomMaterial);
+            material.setQuantite(quantite);
+            material.setCoutUnitaire(coutU);
+            material.setCoutTransport(coutT);
+            material.setCoefficientQualite(coeff);
+
+            materialService.createMateriaux(material,projet.getId());
+            materiaux.add(material);
+
+            System.out.println("Voulez-vous ajouter un autre matériau ? (y/n) : ");
+            String choix = scanner.nextLine();
+            if (choix.equals("n")) {
+                continueAdding = false;
+                MainOeuvreGUI.displayMenuMainOeuvre(projet);
+            }
+        }
+    }
+
 }
