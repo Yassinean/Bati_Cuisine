@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IProjetService {
     Projet getProjectById(Integer id);
-    void createProject(Projet projet);
+    List <Projet> getAllProjects();
+    void createProject(Projet projet , int client_id);
     void updateProject(Integer id , Projet projet);
 }

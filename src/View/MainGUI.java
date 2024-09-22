@@ -1,5 +1,7 @@
 package View;
 
+import Model.Projet;
+
 import java.util.Scanner;
 
 public class MainGUI {
@@ -16,6 +18,7 @@ public class MainGUI {
     }
 
     public void displayMainMenu() {
+        Projet projet = new Projet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("=== Menu Principal ===");
@@ -33,10 +36,10 @@ public class MainGUI {
                     clientGUI.displayMenuClient();
                     break;
                 case 2:
-                    // Logic to display existing projects
+                    projetGUI.displayAllProjects();
                     break;
                 case 3:
-                    // Logic to calculate project cost
+                    projetGUI.displayProjectCostDetails(projet);
                     break;
                 case 4:
                     System.out.println("Quitter l'application.");

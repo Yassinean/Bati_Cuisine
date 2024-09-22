@@ -74,7 +74,7 @@ public class MainOeuvreImp implements IMainOeuvre {
 
     @Override
     public void addMainOeuvre(MainOeuvre mainOeuvre , int projet_id) {
-        String sql = "INSERT INTO maindoeuvre (nom ,tauxtva , projet_id , tauxhoraire , heuretravail , productiviteouvrier , mainoeuvretype) VALUES (?,?,?,?,?,?,?::mainoeuvretype) ";
+        String sql = "INSERT INTO maindoeuvre (nom ,tauxtva , projet_id , tauxhoraire , heurestravail , productiviteouvrier , mainoeuvretype) VALUES (?,?,?,?,?,?,?::mainoeuvretype) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, mainOeuvre.getNom());
             statement.setDouble(2, mainOeuvre.getTauxTva());

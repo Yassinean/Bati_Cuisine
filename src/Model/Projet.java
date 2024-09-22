@@ -11,6 +11,8 @@ public class Projet {
     private double coutTotal;
     private double surface;
     private Client client;
+    private List<Materiaux> materiauxes;
+    private List<MainOeuvre> mainOeuvres;
     private List<Composant> composants;
     private EtatProjet etatProjet;
 
@@ -77,12 +79,28 @@ public class Projet {
         this.surface = surface;
     }
 
-    public int getClient() {
-        return client.getId();
+    public Client getClient() {
+        return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public List<Materiaux> getMateriauxes() {
+        return materiauxes;
+    }
+
+    public void setMateriauxes(List<Materiaux> materiauxes) {
+        this.materiauxes = materiauxes;
+    }
+
+    public List<MainOeuvre> getMainOeuvres() {
+        return mainOeuvres;
+    }
+
+    public void setMainOeuvres(List<MainOeuvre> mainOeuvres) {
+        this.mainOeuvres = mainOeuvres;
     }
 
     public List<Composant> getComposants() {
