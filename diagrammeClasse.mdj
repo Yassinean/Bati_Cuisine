@@ -2333,13 +2333,30 @@
 											"height": 13,
 											"text": "-productiviteOuvrier: double",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGSJZ7gtbCf8pE=",
+											"_parent": {
+												"$ref": "AAAAAAGSJGJe8Pin6g8="
+											},
+											"model": {
+												"$ref": "AAAAAAGSJZ7giLCTqXI="
+											},
+											"font": "Arial;13;0",
+											"left": 1237,
+											"top": 1117,
+											"width": 243.41064453125,
+											"height": 13,
+											"text": "-MainOeuvretype: mainoeuvre",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1232,
 									"top": 1065,
 									"width": 253.41064453125,
-									"height": 55
+									"height": 70
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -2362,7 +2379,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1237,
-											"top": 1125,
+											"top": 1140,
 											"width": 243.41064453125,
 											"height": 13,
 											"text": "+findAllMainOeuvres(): List<MainOeuvre>",
@@ -2379,7 +2396,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1237,
-											"top": 1140,
+											"top": 1155,
 											"width": 243.41064453125,
 											"height": 13,
 											"text": "+findMainOeuvreById(int): MainOeuvre",
@@ -2396,7 +2413,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1237,
-											"top": 1155,
+											"top": 1170,
 											"width": 243.41064453125,
 											"height": 13,
 											"text": "+addMainOeuvre(MainOeuvre, int): void",
@@ -2405,7 +2422,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 1232,
-									"top": 1120,
+									"top": 1135,
 									"width": 253.41064453125,
 									"height": 53
 								},
@@ -2447,7 +2464,7 @@
 							"left": 1232,
 							"top": 1040,
 							"width": 252.41064453125,
-							"height": 133,
+							"height": 148,
 							"nameCompartment": {
 								"$ref": "AAAAAAGSJGJe8PiizBY="
 							},
@@ -2485,8 +2502,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1133,
-									"top": 1114,
+									"left": 1132,
+									"top": 1118,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2506,8 +2523,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1133,
-									"top": 1129,
+									"left": 1132,
+									"top": 1133,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2527,8 +2544,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1132,
-									"top": 1085,
+									"left": 1133,
+									"top": 1089,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2546,7 +2563,7 @@
 								"$ref": "AAAAAAGSJGJe8Piha68="
 							},
 							"lineStyle": 1,
-							"points": "1231:1106;1036:1107",
+							"points": "1231:1112;1036:1108",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGSJGJe8fisT+o="
@@ -4160,6 +4177,16 @@
 							"name": "productiviteOuvrier",
 							"visibility": "private",
 							"type": "double"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGSJZ7giLCTqXI=",
+							"_parent": {
+								"$ref": "AAAAAAGSADaAFilltNY="
+							},
+							"name": "MainOeuvretype",
+							"visibility": "private",
+							"type": "mainoeuvre"
 						}
 					],
 					"operations": [
