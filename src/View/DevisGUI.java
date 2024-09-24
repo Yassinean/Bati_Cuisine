@@ -26,13 +26,26 @@ public class DevisGUI {
     public static void displayDevisMenu(Projet projet) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--- Enregistrement du Devis ---");
+
         System.out.println("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
         LocalDate dateEmission = ValidationUtils.readDate();
-        System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
-        LocalDate dateValidite = ValidationUtils.readDate();
+
+        LocalDate dateValidite;
+        while (true) {
+
+            System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
+            dateValidite = ValidationUtils.readDate();
+
+
+            if (!dateValidite.isBefore(dateEmission)) {
+                break;
+            } else {
+                System.out.println("Erreur : La date de validité ne peut pas être antérieure à la date d'émission. Veuillez réessayer.");
+            }
+        }
 
         double estimatedAmount = projet.getCoutTotal();
+
         System.out.println("Souhaitez-vous enregistrer le devis ? (y/n) : ");
         if (ValidationUtils.readYesNo()) {
             Devis devis = new Devis(estimatedAmount, dateEmission, dateValidite, true, projet.getId());
@@ -46,5 +59,4 @@ public class DevisGUI {
             System.out.println("Enregistrement du devis annulé.");
         }
     }
-
 }

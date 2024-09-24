@@ -60,11 +60,7 @@ public class MainOeuvreGUI {
             double nbrH = ValidationUtils.readDouble();
             System.out.println("Entrez le facteur de productivité (1.0 = standard, > 1.0 = haute productivité) : ");
             double facteur = ValidationUtils.readDouble();
-
-            // Clear the buffer again after numeric input
             scanner.nextLine();
-
-            // Create MainOeuvre object and set values
             MainOeuvre mainO = new MainOeuvre();
             mainO.setNom(nom);
             mainO.setMainOeuvreType(typeMo);

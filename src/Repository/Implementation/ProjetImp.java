@@ -137,7 +137,7 @@ public class ProjetImp implements IProjet {
                 if (state != null) {
                     projet.setEtatProjet(EtatProjet.valueOf(state));
                 } else {
-                    projet.setEtatProjet(null); // or handle the null case appropriately
+                    projet.setEtatProjet(null);
                 }
 
                 Client client = new Client();
@@ -221,13 +221,11 @@ public class ProjetImp implements IProjet {
             statement.setDouble(2, projet.getMargeBeneficiaire());
             statement.setDouble(3, projet.getCoutTotal());
             statement.setDouble(4, projet.getSurface());
-            statement.setString(5, projet.getEtatProjet().name()); // Keep this as String
+            statement.setString(5, projet.getEtatProjet().name());
             statement.setInt(6, client_id);
 
-            // Execute the update
             statement.executeUpdate();
 
-            // Retrieve generated keys
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 projet.setId(generatedKeys.getInt(1));

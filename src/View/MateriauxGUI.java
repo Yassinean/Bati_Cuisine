@@ -44,7 +44,7 @@ public class MateriauxGUI {
             double coutT = ValidationUtils.readDouble();
             System.out.println("Entrez le coefficient de qualité du matériau :");
             double coeff = ValidationUtils.readDouble();
-            scanner.nextLine();  // Clear buffer
+            scanner.nextLine();
             material.setNom(nomMaterial);
             material.setQuantite(quantite);
             material.setCoutUnitaire(coutU);

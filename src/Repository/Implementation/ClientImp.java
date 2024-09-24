@@ -73,7 +73,7 @@ public class ClientImp implements IClient {
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                client.setId(generatedKeys.getInt(1));  // Set generated client_id
+                client.setId(generatedKeys.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();

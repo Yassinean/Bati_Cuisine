@@ -43,7 +43,7 @@ public class MainGUI {
                     break;
                 case 4:
                     System.out.println("Quitter l'application.");
-                    return;  // Exit the loop
+                    return;
                 default:
                     System.out.println("Choix invalide, réessayez.");
             }

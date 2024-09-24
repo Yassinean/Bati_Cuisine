@@ -6,7 +6,6 @@ import Service.Implementation.ProjetServiceImp;
 import Service.Interface.IProjetService;
 import Utils.LoggerUtils;
 import Utils.ValidationUtils;
-import com.sun.tools.javac.Main;
 
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class ProjetGUI {
         projet.setEtatProjet(EtatProjet.Encours);
         projet.setClient(client);
 
-        // Save project and retrieve the updated project with the generated ID
+
         projetService.createProject(projet, client.getId());
         System.out.println("===================================");
         System.out.println("Projet : " + projet.getNomProjet() + " créé avec succès");
