@@ -4,7 +4,9 @@ import Model.Devis;
 import Model.Enum.EtatProjet;
 import Model.Projet;
 import Service.Implementation.DevisServiceImp;
+import Service.Implementation.ProjetServiceImp;
 import Service.Interface.IDevisService;
+import Service.Interface.IProjetService;
 import Utils.ValidationUtils;
 
 
@@ -13,6 +15,7 @@ import java.util.Scanner;
 
 public class DevisGUI {
     private static IDevisService devisService = new DevisServiceImp();
+    private static IProjetService projetService = new ProjetServiceImp();
     private static ProjetGUI projetGUI;
 
     public DevisGUI(IDevisService devisService, ProjetGUI projetGUI) {
@@ -24,18 +27,22 @@ public class DevisGUI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("--- Enregistrement du Devis ---");
-        LocalDate dateEmission = ValidationUtils.validateDateInput("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
-        LocalDate dateValidite = ValidationUtils.validateDateInput("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
+        System.out.println("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
+        LocalDate dateEmission = ValidationUtils.readDate();
+        System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
+        LocalDate dateValidite = ValidationUtils.readDate();
 
         double estimatedAmount = projet.getCoutTotal();
-
-        if (ValidationUtils.validateYesNoInput("Souhaitez-vous enregistrer le devis ? (y/n) : ")) {
+        System.out.println("Souhaitez-vous enregistrer le devis ? (y/n) : ");
+        if (ValidationUtils.readYesNo()) {
             Devis devis = new Devis(estimatedAmount, dateEmission, dateValidite, true, projet.getId());
             devisService.createDevis(devis, projet.getId());
-            projet.setEtatProjet(EtatProjet.valueOf("Terminé"));
+            projetService.updateStateProject(EtatProjet.Terminé, projet.getId());
             System.out.println("Devis enregistré avec succès !");
         } else {
-            projet.setEtatProjet(EtatProjet.valueOf("Annulé"));
+            Devis devis = new Devis(estimatedAmount, dateEmission, dateValidite, false, projet.getId());
+            devisService.createDevis(devis, projet.getId());
+            projetService.updateStateProject(EtatProjet.Annulé, projet.getId());
             System.out.println("Enregistrement du devis annulé.");
         }
     }

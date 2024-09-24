@@ -7,7 +7,6 @@ import java.util.*;
 
 public interface IProjet {
     Projet findProjectById(Integer id);
-    Projet findProjectByName(String name);
     Map <Integer,Projet> findAllProjects();
     Projet addProject(Projet projet , int client_id);
     void updateProject(Integer id,Projet projet);

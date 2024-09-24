@@ -5,9 +5,11 @@ import Model.Materiaux;
 import Model.Projet;
 import Service.Implementation.MateriauxServiceImp;
 import Service.Interface.IMateriauxService;
+import Utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sound.midi.VoiceStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,19 +35,15 @@ public class MateriauxGUI {
 
         while (continueAdding) {
             System.out.println("Entrez le nom du matériau :");
-            String nomMaterial = scanner.nextLine();
-
+            String nomMaterial = ValidationUtils.readString();
             System.out.println("Entrez la quantité de ce matériau (en m²) :");
-            double quantite = scanner.nextDouble();
-
+            double quantite = ValidationUtils.readDouble();
             System.out.println("Entrez le coût unitaire de ce matériau (€/m²) :");
-            double coutU = scanner.nextDouble();
-
+            double coutU = ValidationUtils.readDouble();
             System.out.println("Entrez le coût de transport de ce matériau (€) :");
-            double coutT = scanner.nextDouble();
-
+            double coutT = ValidationUtils.readDouble();
             System.out.println("Entrez le coefficient de qualité du matériau :");
-            double coeff = scanner.nextDouble();
+            double coeff = ValidationUtils.readDouble();
             scanner.nextLine();  // Clear buffer
             material.setNom(nomMaterial);
             material.setQuantite(quantite);

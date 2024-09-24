@@ -3,6 +3,7 @@ package View;
 import Model.Client;
 import Model.Projet;
 import Service.Interface.IClientService;
+import Utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,12 +52,13 @@ public class ClientGUI {
 
     private static void rechercherClient(Scanner scanner) {
         System.out.println("--- Recherche de client existant ---");
-        System.out.print("Entrez le nom du client : ");
-        String nom = scanner.nextLine();
+        System.out.println("Entrez le nom du client : ");
+        String nom = ValidationUtils.readString();
 
         Client client = clientService.getClientByName(nom);
         if (client != null) {
             System.out.println("Client trouvé !");
+            System.out.println(client);
             System.out.print("Souhaitez-vous créer un projet pour ce client ? (y/n) : ");
             String continuer = scanner.nextLine();
             if (continuer.equalsIgnoreCase("y")) {
@@ -71,26 +73,26 @@ public class ClientGUI {
     private static void ajouterNouveauClient(Scanner scanner) {
         Projet projet = new Projet();
         System.out.println("--- Ajouter un nouveau client ---");
-        System.out.print("Entrez le nom du client : ");
-        String nom = scanner.nextLine();
-        System.out.print("Entrez l'adresse du client : ");
-        String adresse = scanner.nextLine();
-        System.out.print("Entrez le numéro de téléphone du client : ");
-        String telephone = scanner.nextLine();
-
-        System.out.print("Le client est-il un professionnel ? (y/n) : ");
-        String isProInput = scanner.nextLine();
-        boolean isProfessional = isProInput.equalsIgnoreCase("y");
+        System.out.println("Entrez le nom du client : ");
+        String nom = ValidationUtils.readString();
+        System.out.println("Entrez l'adresse du client : ");
+        String adresse = ValidationUtils.readString();
+        System.out.println("Entrez le numéro de téléphone du client : ");
+        String telephone = ValidationUtils.readPhoneNumber();
+        System.out.println("Le client est-il un professionnel ? (y/n) : ");
+        boolean isProfessional = ValidationUtils.readYesNo();
 
         Client client = new Client(nom, adresse, telephone, isProfessional);
         clientService.createClient(client);
 
-        System.out.println("Client ajouté avec succès !");
-        System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-        String continuer = scanner.nextLine();
+        System.out.println("===========================");
+        System.out.println("|  Client ajouté avec succès ! |");
+        System.out.println("===========================");
+        System.out.println("Souhaitez-vous continuer avec ce client ? (y/n) : ");
+        boolean continuer = ValidationUtils.readYesNo();
 
-        if (continuer.equalsIgnoreCase("y")) {
+        if (continuer) {
             projetGUI.creerNouveauProjet(client);
-        }
+        }else return;
     }
 }

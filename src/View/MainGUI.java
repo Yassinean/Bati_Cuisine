@@ -39,7 +39,7 @@ public class MainGUI {
                     projetGUI.displayAllProjects();
                     break;
                 case 3:
-                    projetGUI.displayProjectCostDetails(projet);
+                    projetGUI.projectTotalCost();
                     break;
                 case 4:
                     System.out.println("Quitter l'application.");

@@ -29,8 +29,10 @@ public class ProjetGUI {
         Projet projet = new Projet();
 
         System.out.println("--- Création d'un Nouveau Projet ---");
-        String nomProjet = ValidationUtils.validateStringInput("Entrez le nom du projet : ");
-        double surface = ValidationUtils.validateDoubleInput("Entrez la surface (en m²) : ");
+        System.out.println("Entrez le nom du projet : ");
+        String nomProjet = ValidationUtils.readString();
+        System.out.println("Entrez la surface (en m²) : ");
+        double surface = ValidationUtils.readDouble();
 
         projet.setNomProjet(nomProjet);
         projet.setSurface(surface);
@@ -39,8 +41,9 @@ public class ProjetGUI {
 
         // Save project and retrieve the updated project with the generated ID
         projetService.createProject(projet, client.getId());
-
+        System.out.println("===================================");
         System.out.println("Projet : " + projet.getNomProjet() + " créé avec succès");
+        System.out.println("===================================");
 
         MateriauxGUI.displayMenuMaterial(projet);
 
@@ -53,13 +56,12 @@ public class ProjetGUI {
 
 
     public void displayProjectCostDetails(Projet project) {
-       int id = ValidationUtils.validateIntInput("Veuillez entrer l'ID du projet : ");
-        Projet projet = projetService.getProjectById(id);
+        Projet projet = projetService.getProjectById(project.getId());
         if (projet != null) {
             System.out.println("==================================");
             System.out.println("         Détails du Projet        ");
             System.out.println("==================================");
-            System.out.println("Nom du projet : " + projet.getNomProjet());
+            System.out.println("| Nom du projet : " + projet.getNomProjet() + " | ");
             if (projet.getClient() != null) {
                 System.out.println("Client : " + projet.getClient().getNom());
                 System.out.println("Adresse du chantier : " + projet.getClient().getAddress());
@@ -114,7 +116,6 @@ public class ProjetGUI {
 
         DevisGUI.displayDevisMenu(projet);
     }
-
 
 
     public void displayAllProjects() {
@@ -180,7 +181,9 @@ public class ProjetGUI {
     }
 
 
-    public void projectTotalCost(int id) {
+    public void projectTotalCost() {
+        System.out.println("Veuillez entrer l'ID du projet : ");
+        int id = ValidationUtils.readInt();
         Projet project = projetService.getProjectById(id);
         if (project == null) {
             System.out.println("Projet n'existe pas");
