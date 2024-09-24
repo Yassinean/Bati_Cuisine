@@ -1,20 +1,28 @@
 package Service.Implementation;
 
 import Model.Devis;
+import Repository.Implementation.DevisImp;
 import Repository.Interface.IDevis;
 import Service.Interface.IDevisService;
 
 public class DevisServiceImp implements IDevisService {
 
-    private IDevis devisReposInterface;
+    private IDevis devisReposInterface = new DevisImp();
 
-    private DevisServiceImp(IDevis devisReposInterface) {
+    public DevisServiceImp(IDevis devisReposInterface) {
         this.devisReposInterface = devisReposInterface;
     }
 
+    public DevisServiceImp(){}
+
     @Override
-    public void createProject(Devis devis) {
-        devisReposInterface.addDevis(devis);
+    public Devis getDevisById(Integer id) {
+        return devisReposInterface.findDevisById(id);
+    }
+
+    @Override
+    public void createDevis(Devis devis,Integer projet_id) {
+        devisReposInterface.addDevis(devis , projet_id);
     }
 
 }

@@ -1,14 +1,16 @@
 package Config;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import io.github.cdimascio.dotenv.Dotenv;
+
 
 public class DbConfig {
     private static volatile DbConfig instance;
     private final Connection connection;
-    private static final Dotenv dotenv = Dotenv.load();
+    private final Dotenv dotenv = Dotenv.configure().load();
     String dbPort = dotenv.get("DB_PORT");
     String dbName = dotenv.get("DB_NAME");
     String dbUserName = dotenv.get("DB_USERNAME");

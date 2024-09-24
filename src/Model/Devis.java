@@ -8,16 +8,18 @@ public class Devis {
     private LocalDate dateEmission;
     private LocalDate dateValidite;
     private boolean accept;
+    private int projet_id;
 
-    public Devis(int id, double montantEstime, LocalDate dateEmission, LocalDate dateValidite, boolean accept) {
-        this.id = id;
+    public Devis(double montantEstime, LocalDate dateEmission, LocalDate dateValidite, boolean accept , int projet_id) {
         this.montantEstime = montantEstime;
         this.dateEmission = dateEmission;
         this.dateValidite = dateValidite;
         this.accept = accept;
+        this.projet_id = projet_id;
     }
 
     public Devis(){}
+    
 
     public int getId() {
         return id;

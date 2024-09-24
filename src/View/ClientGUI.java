@@ -60,7 +60,7 @@ public class ClientGUI {
             System.out.print("Souhaitez-vous créer un projet pour ce client ? (y/n) : ");
             String continuer = scanner.nextLine();
             if (continuer.equalsIgnoreCase("y")) {
-                projetGUI.creerNouveauProjet(client);  // Pass client to project creation
+                projetGUI.creerNouveauProjet(client);
             }
         } else {
             System.out.println("Client non trouvé.");

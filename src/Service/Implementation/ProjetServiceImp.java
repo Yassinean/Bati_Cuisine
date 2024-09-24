@@ -1,11 +1,13 @@
 package Service.Implementation;
 
+import Model.Enum.EtatProjet;
 import Model.Projet;
 import Repository.Implementation.ProjetImp;
 import Repository.Interface.IProjet;
 import Service.Interface.IProjetService;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class ProjetServiceImp implements IProjetService {
@@ -24,7 +26,7 @@ public class ProjetServiceImp implements IProjetService {
         return projetReposInterface.findProjectById(id);
     }
 
-    public List<Projet> getAllProjects() {
+    public Map<Integer,Projet> getAllProjects() {
         return projetReposInterface.findAllProjects();
     }
 
@@ -37,4 +39,10 @@ public class ProjetServiceImp implements IProjetService {
     public void updateProject(Integer id, Projet projet) {
         projetReposInterface.updateProject(id, projet);
     }
+
+    @Override
+    public void updateStateProject(EtatProjet etatProjet, Integer id) {
+        projetReposInterface.updateStateProject(etatProjet,id);
+    }
+
 }

@@ -13,7 +13,6 @@ public class Projet {
     private Client client;
     private List<Materiaux> materiauxes;
     private List<MainOeuvre> mainOeuvres;
-    private List<Composant> composants;
     private EtatProjet etatProjet;
 
     public Projet(String nomProjet, double margeBeneficiaire, double coutTotal, double surface,EtatProjet etatProjet) {
@@ -103,13 +102,6 @@ public class Projet {
         this.mainOeuvres = mainOeuvres;
     }
 
-    public List<Composant> getComposants() {
-        return composants;
-    }
-
-    public void setComposants(List<Composant> composants) {
-        this.composants = composants;
-    }
 
     @Override
     public String toString() {

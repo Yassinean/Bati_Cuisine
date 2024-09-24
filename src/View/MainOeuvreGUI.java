@@ -89,7 +89,7 @@ public class MainOeuvreGUI {
 
         // Add mainOeuvres to the project components
         for (MainOeuvre mainOeuvre : mainOeuvres) {
-            projet.setComposants((List<Composant>) mainOeuvre);  // Add each mainOeuvre to the project
+            projet.setMainOeuvres(mainOeuvres);  // Add each mainOeuvre to the project
         }
     }
 

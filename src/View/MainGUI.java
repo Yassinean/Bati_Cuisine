@@ -33,7 +33,7 @@ public class MainGUI {
 
             switch (choice) {
                 case 1:
-                    clientGUI.displayMenuClient();
+                    ClientGUI.displayMenuClient();
                     break;
                 case 2:
                     projetGUI.displayAllProjects();

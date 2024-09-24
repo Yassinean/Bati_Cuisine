@@ -1,5 +1,6 @@
 package Repository.Interface;
 
+import Model.Enum.EtatProjet;
 import Model.Projet;
 
 import java.util.*;
@@ -7,8 +8,9 @@ import java.util.*;
 public interface IProjet {
     Projet findProjectById(Integer id);
     Projet findProjectByName(String name);
-    List <Projet> findAllProjects();
+    Map <Integer,Projet> findAllProjects();
     Projet addProject(Projet projet , int client_id);
     void updateProject(Integer id,Projet projet);
+    void updateStateProject(EtatProjet etatProjet, Integer id);
 //    void deleteProject(Integer id);
 }

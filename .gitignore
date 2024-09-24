@@ -4,7 +4,6 @@ out/
 !**/src/test/**/out/
 .env
 
-
 ### Eclipse ###
 .apt_generated
 .classpath

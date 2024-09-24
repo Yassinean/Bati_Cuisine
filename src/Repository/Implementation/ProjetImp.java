@@ -122,9 +122,105 @@ public class ProjetImp implements IProjet {
     }
 
     @Override
-    public List<Projet> findAllProjects() {
-        return List.of();
+    public Map<Integer, Projet> findAllProjects() {
+        String sql = "SELECT p.id AS projet_id, " +
+                "p.nomprojet, " +
+                "p.surface AS projet_surface, " +
+                "p.margebenificiare, " +
+                "p.couttotal, " +
+                "p.etatprojet AS etatProjet, " +
+                "c.id AS client_id, " +
+                "c.nom AS client_nom, " +
+                "c.telephone AS client_telephone," +
+                "c.estprofessionel AS client_estprofessionel," +
+                "c.address " +
+                "FROM projet p " +
+                "JOIN client c ON p.client_id = c.id";
+
+        Map<Integer, Projet> projects = new HashMap<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int projetId = rs.getInt("projet_id");
+                Projet projet = new Projet();
+                projet.setId(projetId);
+                projet.setNomProjet(rs.getString("nomprojet"));
+                projet.setSurface(rs.getDouble("projet_surface"));
+                projet.setCoutTotal(rs.getDouble("couttotal"));
+                projet.setMargeBeneficiaire(rs.getDouble("margebenificiare"));
+                projet.setEtatProjet(EtatProjet.valueOf(rs.getString("etatProjet")));
+
+                Client client = new Client();
+                client.setId(rs.getInt("client_id"));
+                client.setNom(rs.getString("client_nom"));
+                client.setAddress(rs.getString("address"));
+                client.setTelephone(rs.getString("client_telephone"));
+                client.setEstProfessionel(rs.getBoolean("client_estprofessionel"));
+                projet.setClient(client);
+
+                projet.setMateriauxes(new ArrayList<>());
+                projet.setMainOeuvres(new ArrayList<>());
+
+                projects.put(projetId, projet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return projects;
+        }
+
+        String materiauxSql = "SELECT * FROM materiaux WHERE projet_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(materiauxSql)) {
+            for (Projet projet : projects.values()) {
+                stmt.setInt(1, projet.getId());
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Materiaux materiel = new Materiaux(
+                                rs.getString("nom"),
+                                rs.getDouble("tauxtva"),
+                                rs.getDouble("coutunitaire"),
+                                rs.getDouble("quantite"),
+                                rs.getDouble("couttransport"),
+                                rs.getDouble("coefficientqualite")
+                        );
+                        materiel.setId(rs.getInt("id"));
+                        projet.getMateriauxes().add(materiel);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String mainDoeuvreSql = "SELECT * FROM maindoeuvre WHERE projet_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(mainDoeuvreSql)) {
+            for (Projet projet : projects.values()) {
+                stmt.setInt(1, projet.getId());
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        MainOeuvre mainDoeuvre = new MainOeuvre(
+                                rs.getString("nom"),
+                                rs.getDouble("tauxtva"),
+                                rs.getDouble("tauxhoraire"),
+                                rs.getDouble("heurestravail"),
+                                rs.getDouble("productiviteouvrier"),
+                                MainOeuvreType.valueOf(rs.getString("mainoeuvretype"))
+                        );
+                        mainDoeuvre.setId(rs.getInt("id"));
+                        projet.getMainOeuvres().add(mainDoeuvre);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return projects;
     }
+
 
 
     @Override
@@ -144,7 +240,7 @@ public class ProjetImp implements IProjet {
             // Retrieve generated keys
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                projet.setId(generatedKeys.getInt(1));  // Set the generated project ID
+                projet.setId(generatedKeys.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,18 +251,27 @@ public class ProjetImp implements IProjet {
 
     @Override
     public void updateProject(Integer id, Projet projet) {
-        String sql = "UPDATE TABLE projet SET nomProjet = ? , margeBenificiare = ? , coutTotal = ? , surface = ? ,etatProjet = ? , client_id = ? WHERE id = ?";
+        String sql = "UPDATE projet SET margeBenificiare = ? , coutTotal = ?  , etatProjet = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, projet.getNomProjet());
-            statement.setDouble(2, projet.getMargeBeneficiaire());
-            statement.setDouble(3, projet.getCoutTotal());
-            statement.setDouble(4, projet.getSurface());
-            statement.setObject(5, projet.getEtatProjet());
-            statement.setObject(6, projet.getClient());
-            statement.setObject(6, id);
+            statement.setDouble(1, projet.getMargeBeneficiaire());
+            statement.setDouble(2, projet.getCoutTotal());
+            statement.setObject(3, projet.getEtatProjet());
+            statement.setInt(4, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateStateProject(EtatProjet etatProjet, Integer id) {
+        String sql = "UDPATE projet SET etatprojet = ?::etatProjet WHERE id = ? ";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.setObject(2, etatProjet.name());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
